@@ -1,0 +1,20 @@
+---
+title: "Practical 1"
+format: html
+editor: visual
+---
+
+\section{Practical One}
+
+1\.
+
+```{r}
+#| echo:true
+
+#Find rows that have NA
+data("airquality")
+airquality
+na_rows = airquality[rowSums(is.na(airquality))>0,]
+na_rows
+
+```
