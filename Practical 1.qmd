@@ -66,3 +66,46 @@ beta
 model = lm(dist~speed,Data_cars)
 summary(model)
 ```
+
+5\.
+
+```{r}
+#| echo:true
+
+#Calculate beta
+#Calc std error
+#Calc p value
+  
+f<- function(X,Y){
+ Response_ <- Y
+ Design_ <- X
+ 
+ #Calculate betaa
+ beta_ <- solve(t(Design_)%*%Design_)%*%t(Design_)%*%Response
+ 
+  n <- length(Response)
+  k <- ncol(beta_)
+
+ #Calculate Standard error
+ Residuals <- Response - Design%*%beta_
+ RSS <- sum(Residuals^2)
+ Res_variance <- RSS/(n-k)
+
+ std_err <- t(sqrt(Res_variance%*%diag(solve(t(Design_)%*%Design_))))
+ 
+ #Calculate t statistic
+ t_stat <- beta_/std_err
+ 
+ #Degrees of freedom
+ df_ <- n - k
+ 
+ # The p value
+ p_val <- 2*pt(t_stat,df = df_,lower.tail = FALSE)
+ 
+ #Return list
+ return(list("Coefficients"= beta_,"Std error" = std_err,"t_stat" = t_stat,"pvalue" = p_val))
+  
+}
+b <- f(Design,Response)
+b
+```
