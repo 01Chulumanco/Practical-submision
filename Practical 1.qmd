@@ -9,7 +9,6 @@ editor: visual
 1\.
 
 ```{r}
-#| echo:true
 
 #Find rows that have NA
 data("airquality")
@@ -22,7 +21,7 @@ na_rows
 2.  
 
 ```{r}
-#| echo:true
+
 #Calculate means
 mean_ozone = mean(airquality$Ozone,na.rm=TRUE)
 mean_temp  = mean(airquality$Temp,na.rm=TRUE)
@@ -39,7 +38,7 @@ max_temp  = max(airquality$Temp,na.rm=TRUE)
 3\.
 
 ```{r}
-#| echo:true
+
 data("cars")
 Data_cars = data.frame(cars)
 
@@ -70,7 +69,6 @@ summary(model)
 5\.
 
 ```{r}
-#| echo:true
 
 #Calculate beta
 #Calc std error
