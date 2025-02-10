@@ -70,3 +70,11 @@ customLowess<- function(x,y,f){
 c <- customLowess(x,y,0.3)
 c
 ```
+
+2\.
+
+```{r}
+#Double check
+w<-lowess(x,y,0.3)
+w
+```
