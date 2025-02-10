@@ -9,6 +9,7 @@ editor: visual
 1\.
 
 ```{r}
+rm(list=ls())
 
 #Find rows that have NA
 data("airquality")

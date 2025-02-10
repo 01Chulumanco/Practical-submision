@@ -1,0 +1,10 @@
+---
+title: "Prac 4"
+format: html
+editor: visual
+---
+
+```{r}
+library(tibble)
+
+```

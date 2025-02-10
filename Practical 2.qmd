@@ -13,7 +13,7 @@ rm(list=ls())
 set.seed(1)
 
 #Generate Simulated Data
-x <- runif(100,1,100)
+x <- seq(1, by = 1, length.out = 100)
 e <- rnorm(n=100,mean=0,sd=0.2)
 y <- sin(x/10) + e
 
@@ -77,4 +77,10 @@ c
 #Double check
 w<-lowess(x,y,0.3)
 w
+```
+
+```{r}
+#Origional data vs smoothed data
+plot(x, y,pch = 16)
+points(x, c$y_hat, col = "red",pch=16) 
 ```
