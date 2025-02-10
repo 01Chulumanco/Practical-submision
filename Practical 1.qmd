@@ -56,3 +56,13 @@ beta = solve(t(Design)%*%Design)%*%t(Design)%*%Response
 beta
 
 ```
+
+4\.
+
+```{r}
+#| echo: true
+
+#Use lm function to estimate beta
+model = lm(dist~speed,Data_cars)
+summary(model)
+```
