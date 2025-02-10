@@ -1,0 +1,72 @@
+---
+title: "Practical 2"
+format: html
+editor: visual
+---
+
+```{r,warning=FALSE}
+
+rm(list=ls())
+#1. Generate Simulated data
+
+#Set seed
+set.seed(1)
+
+#Generate Simulated Data
+x <- runif(100,1,100)
+e <- rnorm(n=100,mean=0,sd=0.2)
+y <- sin(x/10) + e
+
+
+#2. Implement the LOWESS Algorithm
+
+customLowess<- function(x,y,f){
+ # The function returns smoothed values
+ # x is the vector of x coordinates of data points
+ # y is the vector of second coordinates of the data points 
+ # f is the span of the smoothing
+ # n the number of observations
+  
+ #k is the number of closest neighbours for point i:
+  n <- length(x)
+  k <- ceiling(f*n)
+  
+  #Initialize predicted values
+  y_hat <- numeric(n)
+  for(i in 1:n){
+    
+    dist_vec      <- abs(x-x[i])
+    neighbour_ind <- order(dist_vec)[1:k]
+    #Remove i from neighbouring points indexes
+    #neighbour_ind <- neighbour_ind[neighbour_ind!=i]
+    
+    #Find neighbouring points
+    x_neighbour <- x[neighbour_ind]
+    y_neighbour <- y[neighbour_ind]
+    
+    #The Design matrix
+    Design      <- cbind(1,x_neighbour)
+    
+    #Calculate weights
+    distances<- abs(x_neighbour-x[i])
+    d_max    <- max(distances) 
+    
+    #Calculate weights
+    weights  <- (1 - (distances / d_max)^3)^3
+    
+    W <- diag(weights)
+    
+    #Calculate beta hat
+    beta_hat <- solve(t(Design)%*%W%*%Design)%*%t(Design)%*%W%*%y_neighbour
+    
+    #Calculate y_hat: the smoothed values
+    y_hat[i] <- beta_hat%*%c(1,x[i])
+    y_hat[i] <- beta_hat[1] + beta_hat[2]%*%x[i]
+  
+  }
+  #Return smoothed values
+  return(list("y_hat" = y_hat))
+}
+c <- customLowess(x,y,0.3)
+c
+```
